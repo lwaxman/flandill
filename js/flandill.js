@@ -1,45 +1,56 @@
+/*
+*
+*
+*
+*
+* TO DO:
+* - map deeb fills to deebs own health, rather than ecosystem
+* - save to server properly
+* - archive
+*
+*
+*
+*/
+
 
 var critters = []; 
 var deebs = [];
 var ecosystem = {};
 var bgFill; 
+var jsonData = {};
 
 //on page load, get data from server.
 window.onload = function(){
   console.log("loading flandill");
-
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.open('GET', '../php/creatures.json');
-  xmlhttp.onreadystatechange = function() {
+  xmlhttp.onreadystatechange = function(){
+
     if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
       var eco = JSON.parse(xmlhttp.responseText);
+      jsonData = eco; 
 
-      ecosystem.points+=20; 
-      ecosystem.visitors++; 
-      ecosystem.points = 100;
+      ecosystem.points = eco.points+20; 
+      ecosystem.points = 50; 
+      ecosystem.visitors = eco.visitors+1; 
       var today = new Date();
       ecosystem.lastVisit = today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear(); 
       if(ecosystem.points<100){ ecosystem.points = 100; }
-      console.log("points", ecosystem.points);
 
       ecosystem.critters = [];
-      eco.critters.forEach(function(critter){ 
-        var d = new Deeb(critter.x, critter.y, critter.w, critter.h);
-        ecosystem.critters.push(d);
-      }); 
+      addToEcosystem(eco, ecosystem);
 
       bgFill = bgTexture(ecosystem.points);
       document.getElementById("loading").style.opacity = "0";
 
+      console.log("points", ecosystem.points);
 
     }
+
   };
+
   xmlhttp.send();
 
-  // //reset
-  // ecosystem = reset(ecosystem);
-  // bgFill = bgTexture(ecosystem.points);
-  // document.getElementById("loading").style.opacity = "0";
 };
 
 //draw
@@ -71,10 +82,18 @@ setInterval(function(){
   });
 }, 50);
 
-//before leaving page, save data back to server. 
+// before leaving page, save data back to server. 
 window.onbeforeunload = function(){
+  for(var c=0; c<ecosystem.critters.length; c++){
+    if(ecosystem.critters[c].type == "deeb"){
+      var thisIndex = ecosystem.critters[c].index;
+      jsonData.critters[ thisIndex ] = critterArray[c];
+    }
+  } 
+
   var xmlhttp = new XMLHttpRequest();
-  var data = "data="+JSON.stringify(ecosystem);
+  var data = "test="+JSON.stringify(ecosystem);
+  // var data = "data="+JSON.stringify(ecosystem);
   xmlhttp.open("POST", "../php/save.php", false);
   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xmlhttp.setRequestHeader("Content-length", data.length);

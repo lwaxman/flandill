@@ -4,11 +4,8 @@
 	$file = 'creatures.json';
 	file_put_contents($file, $data);
 
-	// $infoData = $_POST['info'];
-	// $infoFile = 'info.json';
-	// file_put_contents($infoFile, $infoData);
+	$dataTest = $_POST['test'];
+	$fileTest = 'creatures_test.json';
+	file_put_contents($fileTest, $dataTest);
 
-	// $deebsData = $_POST['deebs'];
-	// $deebsFile = 'deebs.json';
-	// file_put_contents($deebsFile, $deebsData);
 ?>
