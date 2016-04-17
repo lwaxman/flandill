@@ -10,3 +10,10 @@ Component.prototype.update = function(){};
 
 Component.prototype.draw = function(){};
 
+Component.prototype.checkHover = function(){
+	if(mouseX>this.x-(this.w/2) && mouseX<this.x+(this.w/2) && mouseY<this.y && mouseY>this.y-this.h){
+		return true; 
+	}else{
+		return false;
+	}
+};

@@ -8,13 +8,24 @@ function Deeb(x, y, w, h) {
 	this.mouth = random(10, 30);
 	this.slugLength =  random(40,70);
 	this.slugCount = random(0,10);
-	console.log(this.height);
+	this.fill1 = deebTexture(ecosystem.points, 0);
+	this.fill2 = deebTexture(ecosystem.points, 5);
+	this.stroke = deebStroke(ecosystem.points);
+	this.type = "deeb";
 }
 
 Deeb.prototype = Object.create(Component.prototype);
 
 Deeb.prototype.update = function() {
-  	if(this.speed>0){
+  	this.moveDeeb();
+  	this.slug();
+  	if(this.hover){
+  		this.shakeWithFear();
+  	}
+};
+
+Deeb.prototype.moveDeeb = function(){
+	if(this.speed>0){
 		if(this.x>width+this.w){
 			this.x = -100; 
 			this.y = random(0, height);
@@ -25,12 +36,24 @@ Deeb.prototype.update = function() {
 			this.y = random(0, height);
 		}
 	}
-  	this.x += this.speed;
-	// if(!this.hover){
-	// 	console.log(this.hover);
-	// 	this.x += this.speed;
-	// }
+	if(!this.hover){
+		this.x += this.speed;
+	}
+};
 
+Deeb.prototype.shakeWithFear = function(){
+	if(random(0,1)<1){
+		this.x+=3; 
+	}else{
+		this.x-=3;
+	}
+};
+
+Deeb.prototype.slug = function(){
+	this.slugCount++;
+	var amplitude = 7;
+	var y = Math.sin( (this.slugCount/this.slugLength*2*Math.PI)+Math.PI ) * amplitude;
+	this.h = this.height+y;
 };
 
 Deeb.prototype.draw = function() {
@@ -41,6 +64,12 @@ Deeb.prototype.draw = function() {
 	var eyeHeight = map(ecosystem.points, 400, 100, this.h*0.75, this.h*0.95);
 	var smile = map(ecosystem.points, 400, 0, -20, 20);
 	var smileWidth = map(ecosystem.points, 400, 0, this.mouth*0.8, this.mouth);
+	var pupil; 
+	if(this.hover){
+		pupil = 6;
+	}else{
+		pupil = 3; 
+	}
 
 	stroke(this.stroke);
 	fill(this.fill1);
@@ -48,4 +77,13 @@ Deeb.prototype.draw = function() {
 	noStroke();
 	fill(this.fill2);
 	lump( this.x, this.y-3, bodyWidth*0.75, this.h*0.95);
+
+	//eyes
+	for(var i=-2; i<3; i+=4){
+		fill("#fff");
+		ellipse(this.x+(i*10), this.y-eyeHeight, 30, 30, 0, 360);
+		noStroke();
+		fill("#000");
+		simpleEllipse(this.x+(i*10), this.y-eyeHeight, pupil, pupil);
+	}
 };
