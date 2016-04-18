@@ -1,6 +1,6 @@
 /*
 * www.flandill.net
-* library.js: the drawing library. comparable to p5js, but with 
+* library.js: the drawing library. comparable to p5js, but a little more "hand drawn."
 */
 
 var canvas = document.getElementById("main");

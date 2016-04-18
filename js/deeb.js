@@ -3,7 +3,8 @@ function Deeb(x, y, w, h) {
 	Component.call(this, x, y, w, h);
 	var neg; 
 	if(random(0,1)<1){ neg = -1; }else{ neg = 1; }
-	this.speed = random(2, 5)*neg;
+	this.speed = random( map(ecosystem.points, 0, 400, 3, 1), map(ecosystem.points, 0, 400, 6, 3), false)*neg;
+	// this.speed = random(2, 5)*neg;
 	this.height = h; 
 	if(random(0,1,false)<0.3){
 		this.deathPoint = random(250, 400);
@@ -66,6 +67,7 @@ Deeb.prototype.shakeWithFear = function(){
 	}else{
 		this.x-=3;
 	}
+	if(mouseClicked){ this.health+=20; }
 	if(this.health >= this.deathPoint){
 		this.state = 0;
 		this.fill1 = deebTexture(this.deathPoint-this.health, 5);
@@ -82,7 +84,7 @@ Deeb.prototype.displayHoverText = function(name) {
 	}else if(this.hoverText===1){
 		text = "Enough! You'll scare "+name+" to death!";
 	}else{
-		text = "This is "+name+". Blah blah stop it blah.";
+		text = "Leave "+name+" alone, you oaf.";
 	}
 	return text; 
 };
@@ -100,9 +102,9 @@ Deeb.prototype.draw = function() {
 
 	var bodyWidth = this.w + map(this.health, 0, this.deathPoint, 50, -90);
 	var eyeSize = map(this.health, 0, this.deathPoint, this.eyeSize, this.eyeSize*0.6);
-	var eyeHeight = map(this.health, 0, this.deathPoint, this.h*0.95, this.h*0.75);
-	var smile = map(this.health, 0, this.deathPoint, 20, -20);
-	var smileWidth = map(this.health, 0, this.deathPoint, this.mouth, this.mouth*0.6);
+	var eyeHeight = map(this.health, 100, this.deathPoint, this.h*0.95, this.h*0.75);
+	var smile = map(this.health, 100, this.deathPoint, 20, -20);
+	var smileWidth = map(this.health, 100, this.deathPoint, this.mouth, this.mouth*0.6);
 
 	stroke(this.stroke);
 	fill(this.fill1);
@@ -137,10 +139,14 @@ Deeb.prototype.draw = function() {
 	if(this.state!==0){
 		noFill();
 		stroke("#468287");
-		if(smile>=-3 && smile<=3){
-			line(this.x-(smileWidth/2), this.y-eyeHeight+25, this.x+(smileWidth/2), this.y-eyeHeight+25 );
+		if(!this.hover){			
+			if(smile>=-3 && smile<=3){
+				line(this.x-(smileWidth/2), this.y-eyeHeight+25, this.x+(smileWidth/2), this.y-eyeHeight+25 );
+			}else{
+				arc(this.x, this.y-eyeHeight+25, smileWidth, smile, 0, 190);
+			}
 		}else{
-			arc(this.x, this.y-eyeHeight+25, smileWidth, smile, 0, 190);
+			line(this.x-5, this.y-eyeHeight+25, this.x+5, this.y-eyeHeight+25 );
 		}
 	}
 };

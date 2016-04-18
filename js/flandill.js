@@ -1,12 +1,10 @@
 /*
-*
 * Laurie Waxman
-* Flandill
+* 2016.04.17 
 *
-* TO DO:
-* - save to server properly
-* - archive
-*
+* www.flandill.net
+* flandill.js: reads from the server, iterates, saves back to server.
+* !!! must be called seperately from reset.js
 */
 
 
@@ -15,6 +13,9 @@ var deebs = [];
 var ecosystem = {};
 var bgFill; 
 var jsonData = {};
+var mouseClicked = false;
+
+var alertBox = document.getElementById("alertBox");
 
 //on page load, get data from server.
 window.onload = function(){
@@ -27,7 +28,8 @@ window.onload = function(){
       jsonData = JSON.parse(xmlhttp.responseText);
       //set
       ecosystem.points = eco.points+20; 
-      ecosystem.points = 0; 
+      ecosystem.points = 400; 
+      ecosystem.flowers = 100; 
       ecosystem.visitors = eco.visitors+1; 
       ecosystem.archive = 0;
       var today = new Date();
@@ -38,11 +40,22 @@ window.onload = function(){
       addToEcosystem(eco, ecosystem);
 
       bgFill = bgTexture(ecosystem.points);
-      document.getElementById("loading").style.opacity = "0";
       console.log("points", ecosystem.points);
+      console.log("lastVisit", ecosystem.lastVisit);
+      console.log("archive", ecosystem.archive);
+      console.log("visitors", ecosystem.visitors);
+
+      document.getElementById("loading").style.opacity = "0";
     }
   };
   xmlhttp.send();
+};
+
+window.onmousedown = function(){
+  mouseClicked = true;
+};
+window.onmouseup = function(){
+  mouseClicked = false;
 };
 
 //draw
@@ -79,6 +92,7 @@ window.onbeforeunload = function(){
   jsonData.visitors = ecosystem.visitors; 
   jsonData.lastVisit = ecosystem.lastVisit; 
   jsonData.archive = ecosystem.archive; 
+  jsonData.flowers = ecosystem.flowers; 
 
   for(var c=0; c<ecosystem.critters.length; c++){
     if(ecosystem.critters[c].type == "deeb"){

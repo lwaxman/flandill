@@ -1,3 +1,7 @@
+/*
+* www.flandill.net
+* addToEcosystem.js: adds objects based on the health on the ecosystem's health.
+*/
 
 function addToEcosystem(eco, ecosystem){
   var points = ecosystem.points;
@@ -29,7 +33,7 @@ function addToEcosystem(eco, ecosystem){
     ecosystem.critters.push( tempPlant );
   }
   for(var r=0; r<rockCount; r++){
-    var tempRock = new Rock( random(0,width), random(0,height,false), random(100,150), random(100,150) );
+    var tempRock = new Rock( random(0,width), random(0,height,false), random(100,150), random(50,75) );
     ecosystem.critters.push( tempRock );
   }
   for(var g=0; g<grassCount; g++){

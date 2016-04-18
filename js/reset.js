@@ -1,3 +1,9 @@
+/*
+* www.flandill.net
+* reset.js: when called, resets the json file.
+* !!! must be called seperately from flandill.js
+*/
+
 
 function reset(){
 	ecosystem.points = 100;

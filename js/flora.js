@@ -17,11 +17,14 @@ function Rock(x, y, w, h){
 Rock.prototype = Object.create(Component.prototype);
 
 Rock.prototype.draw = function(){
+	if(this.hover){
+		alertBox.innerHTML = "Just a rock.";
+	} 
 	fill(this.fill);
 	stroke(this.stroke);
-	ellipse(this.x, this.y, this.w, this.h, 180, 360);
-	ellipse(this.x, this.y, this.w, this.h, 180, 360);
-	ellipse(this.x, this.y, this.w, this.h, 180, 360);
+	ellipse(this.x, this.y, this.w, this.h*2, 180, 360);
+	ellipse(this.x, this.y, this.w, this.h*2, 180, 360);
+	ellipse(this.x, this.y, this.w, this.h*2, 180, 360);
 };
 
 //////////////////////////////////////////////////////////////////// BUSH
@@ -57,6 +60,7 @@ function Flower(x, y, w, h){
 	else if(ecosystem.points>=400){ bri = 40; sat = 40; }
 	this.fill = "hsla("+hue+", "+sat+"%, "+bri+"%, 1)";
 	this.stroke =  "hsla(358, "+sat+"%, "+(bri+10)+"%, 1)";
+	this.picked = false;
 
 	this.flowerCount = random(3,5);
 	this.stemLengths = [];
@@ -71,6 +75,20 @@ function Flower(x, y, w, h){
 
 Flower.prototype = Object.create(Component.prototype);
 
+Flower.prototype.update = function(){
+	if(this.hover){
+		if(mouseClicked){ 
+			this.picked = true; 
+			ecosystem.flowers -= 1;
+		}
+		if(!this.picked){
+			alertBox.innerHTML = "Please don't pick the flowers!";
+		}else{
+			alertBox.innerHTML = "This <span class='italic'>used</span> to be a flower.";
+		}
+	} 
+};
+
 Flower.prototype.draw = function(){
 	for(var i=0; i<this.flowerCount; i++){
 		this.drawStem(this.x, this.y, this.x+this.stemOffsets[i], this.y-this.stemLengths[i], this.flowerSizes[i]);
@@ -80,9 +98,15 @@ Flower.prototype.draw = function(){
 Flower.prototype.drawStem = function(x1, y1, x2, y2, r){
 	stroke(this.stroke);
 	noFill();
-	line(x1, y1, x2, y2);
-	fill(this.fill);
-	ellipse(x2, y2, r, r, 0, 360);
+	if(!this.picked){
+		line(x1, y1, x2, y2);
+		fill(this.fill);
+		ellipse(x2, y2, r, r, 0, 360);
+	}else{
+		var a = (x2-x1)/2;
+		var b = (y1-y2)/2;
+		line(x1, y1, x1+a, y2+b);
+	}
 };
 //////////////////////////////////////////////////////////////////// PLANT
 
