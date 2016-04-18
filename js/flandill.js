@@ -18,6 +18,10 @@ var alertBox = document.getElementById("alertBox");
 
 //on page load, get data from server.
 window.onload = function(){
+  document.getElementById("main").style.width = window.innerWidth+"px";
+  document.getElementById("main").style.marginLeft = -(window.innerWidth/2)+"px";
+  document.getElementById("info").style.width = window.innerWidth-200+"px"; 
+  document.getElementById("info").style.height = window.innerHeight-200+"px"; 
   console.log("loading flandill");
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.open('GET', '../php/creatures.json');
@@ -26,11 +30,15 @@ window.onload = function(){
       var eco = JSON.parse(xmlhttp.responseText);
       jsonData = JSON.parse(xmlhttp.responseText);
       //set
-      ecosystem.points = eco.points+10; 
+
       ecosystem.flora = eco.flora; 
       ecosystem.visitors = eco.visitors+1; 
+
       var today = new Date();
       ecosystem.lastVisit = today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear(); 
+
+      var days = daysEllapsed( parseDate(ecosystem.lastVisit), parseDate(eco.lastVisit) ); 
+      ecosystem.points = eco.points-(days*10)+10; 
       if(ecosystem.points<=0){ ecosystem.points = 0; }
       var newVisit = { date:ecosystem.lastVisit, points: ecosystem.points };
       // eco.dates.push(newVisit)
@@ -40,8 +48,16 @@ window.onload = function(){
       for (var i=ecosystem.dates.length-1; i>=0; i--) {
         var date = ecosystem.dates[i];
         var htmlDate = document.createElement("p");
-        htmlDate.innerHTML = date.date +"<span>"+date.points+"</span>";
-        document.getElementById("columnTwo").appendChild(htmlDate);
+        var status; 
+        if(i>0){
+          if( date.points > ecosystem.dates[i-1].points){
+            status = "decrease";
+          }else{
+            status = "increase";
+          }
+        }
+        htmlDate.innerHTML = date.date +" : <span class='"+status+"'>"+date.points+"</span>";
+        document.getElementById("archive").appendChild(htmlDate);
       }
 
       ecosystem.critters = [];
@@ -57,10 +73,6 @@ window.onload = function(){
       startInterval();
 
       document.getElementById("ecoPoints").innerHTML = ecosystem.points;
-
-      document.getElementById("info").style.width = window.innerWidth-200+"px"; 
-      document.getElementById("info").style.height = window.innerHeight-200+"px"; 
-
       document.getElementById("loading").style.opacity = "0";
     }
   };
@@ -81,8 +93,9 @@ infoButton.onclick = function(){
   }
 };
 
-
 var startInterval = function(){
+  infoButton.style.display = "block";
+  document.getElementById("loading").style.display = "none";
   //draw
   setInterval(function(){
     background(bgFill);

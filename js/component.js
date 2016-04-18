@@ -31,8 +31,6 @@ window.onmouseup = function(){
 };
 
 window.onresize = function(){
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
-	w = window.innerWidth;
-	h = window.innerHeight;
+	document.getElementById("info").style.width = window.innerWidth-200+"px"; 
+	document.getElementById("info").style.height = window.innerHeight-200+"px"; 
 };

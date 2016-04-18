@@ -4,9 +4,12 @@ body{
     font-family: 'Source Sans Pro', sans-serif;
     // font-family: "Menlo", "Monaco", monospace;
     overflow: hidden;
+    background: #B84DD6;
 }
-canvas{
+#main{
+    position: relative;
     background: black;
+    left: 50%;
 }
 #loading{
     width: 100%;
@@ -55,10 +58,11 @@ canvas{
     width: 50px;
     height: 50px;
     opacity: 0.8;
+    display: none;
     background-image: url(info-close.png);
 }
 #button:hover{
-    opacity: 1
+    opacity: 1;
 }
 
 #info h2{
@@ -85,16 +89,38 @@ canvas{
     vertical-align: top;
     display: inline-block;
     height: 90%;
-    width: 60%;
+    width: 70%;
     color: white;
 }
 #info #columnTwo{
     vertical-align: top;
     display: inline-block;  
-    height: 90%;
-    width: 30%;
-    background: blue;
+    height: 80%;
+    width: 20%;
     color: white;
+}
+
+#info #columnTwo{
+    // overflow: scroll;
+}
+
+#info #archive{
+    height: 90%;
+    width: 100%;
+    overflow: scroll;
+}
+
+.increase{
+    color: #88D613;
+}
+
+.decrease{
+    color: #FF2000;
+}
+
+#columnTwo p{
+    margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 #alert{
@@ -114,4 +140,25 @@ canvas{
 }
 .emphasis{
     color: #8AE0E6;
+}
+
+@media (max-width: 1100px) {
+    #info p{
+        font-size: 16px;
+    }
+    #info #columnTwo{
+    }
+}
+
+@media (min-width: 1600px) {
+    #info #infoTitle{
+        width: 40%;
+    }
+    #info #columnOne{
+        // padding-left: 100px;      
+        width: 70%;
+    }
+    #info #columnTwo{
+        width: 20%;
+    }
 }

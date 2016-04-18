@@ -28,8 +28,8 @@ document.onmousemove = function(e){
 	mouseY = e.clientY;
 };
 document.onmouseleave = function(e){
-	mouseX = width+200;
-	mouseY = height+200;
+	mouseX = -200;
+	mouseY = -200;
 };
 
 /*************************************************************************** MATHS */
@@ -58,6 +58,15 @@ var map = function(num, minIN, maxIN, minOUT, maxOUT) {
 var degrees = function(d){
 	return d * Math.PI/180;
 };
+
+function parseDate(str) {
+    var mdy = str.split('/');
+    return new Date(mdy[2], mdy[1]-1, mdy[0]);
+}
+
+function daysEllapsed(first, second) {
+    return Math.abs( Math.round((second-first)/(1000*60*60*24)) );
+}
 
 /*************************************************************************** DRAWING */
 
