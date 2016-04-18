@@ -5,7 +5,7 @@
 
 function addToEcosystem(eco, ecosystem){
   var points = ecosystem.points;
-  var floraCount = 1;//ecosystem.flora; 
+  var floraCount = ecosystem.flora/100; 
   var density = Math.round( (width*height/22500) );
   var rockCount = Math.round( density*0.2 );  
   var grassCount = Math.round( density );  

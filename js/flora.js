@@ -90,7 +90,6 @@ Flower.prototype.update = function(){
 			pluck.play();
 			this.picked = true; 
 			ecosystem.flora -= 0.01;
-			console.log(ecosystem.flora);
 			this.h = this.h*0.4;
 		}
 		if(!this.picked){
@@ -143,7 +142,6 @@ Plant.prototype.update = function(){
 			pluck.play();
 			this.picked = true; 
 			ecosystem.flora -= 0.01;
-			console.log(ecosystem.flora);
 			this.h = 30;
 		}
 		if(!this.picked){
