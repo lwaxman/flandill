@@ -15,7 +15,7 @@ function addToEcosystem(eco, ecosystem){
   var deebCount = Math.round( density*map(points, 400, 0, 0.2, 0.6) ); 
   for(var i=0; i<deebCount; i++){
     var thisDeeb = eco.critters[ random(0,eco.critters.length-1) ];
-    var d = new Deeb(thisDeeb.x, thisDeeb.y, thisDeeb.w, thisDeeb.height);
+    var d = new Deeb(thisDeeb.x, random(0,height,false), thisDeeb.w, thisDeeb.height);
     d.name = thisDeeb.name;
     d.index = thisDeeb.index; 
     // d.health = thisDeeb.health; 

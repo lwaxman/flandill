@@ -3,55 +3,34 @@
     <head>
         <meta charset="utf-8">
         <title>FLANDILL</title>
-        <style> 
-            body{ 
-                margin: 0; 
-                font-family: "Menlo", "Monaco", monospace;
-            }
-            canvas{
-                background: black;
-            }
-            #loading{
-                width: 100%;
-                height: 100%;
-                position: fixed; 
-                top: 0;
-                left: 0;
-                background: black;
-                opacity: 1;
-                transition: opacity 1s;
-            }
-            #loading p{
-                position: relative;
-                top: 50%;
-                text-align: center;
-                color: white;
-                font-family: "Menlo", "Monaco", monospace; 
-            }
-            #alert{
-                width: 100%;
-                text-align: center;
-                position: fixed;
-                bottom: 50px;
-            }
-            #alertBox{
-                background: black;
-                color: white;
-                display: inline-block;
-                padding: 10px;
-            }
-            .italic{
-                font-style: italic;
-                /*color: red;*/
-            }
-        </style>
+        <link rel="stylesheet" href="assets/style.css">
     </head>
     <body>
         <canvas id="main"></canvas>
         <div id="alert"><p id="alertBox">...</p></div>
 
-        <div id="loading"><p>[ loading loading loading ]</p></div>
-        <!-- <script src="php/creatures.json"></script> -->
+        <div id="info">
+            <img id="infoTitle" src="assets/title.svg" alt="Flandill">
+            <div id="columnOne">
+                <h2>ABOUT FLANDILL</h2>
+                <p>The planet of Flandill lies approximately 149.6 million km from its star. Its climate is temperate, and its resources plentiful. Its inhabitants, called "deebs," are part of a very balanced and fragile ecosystem so exquisite people from all over lined up for a chance to visit the newly discovered world. We did not realize at first how great an impact our visiting Flandill would have, so off we went with a sense of naive wonder.</p> 
+                <p>Recent science has since informed us that our presence on Flandill has been deplorable, yet visits to the planet have not cut back. Every visitor releases toxic pollutants into the atmosphere&mdash;so minuscule an amount one might assume there were no consequences. But humans are curious, and as the proverbial cat will tell us, curiosity kills. <span class="emphasis">If the atmosphere levels breach 400ppm of these pollutants, the deebs face extinction.</span> For the good of Flandill, we must hold back from our visits, and give the planet time to heal its wounds.</p>
+
+                <h2>YOUR IMPACT <span class="emphasis">(YES, <span class="italic">YOU!</span>)</span></h2>
+                <p>Thanks to you, the pollutants in Flandill's atmosphere have reached  <span class="emphasis"><span id="ecoPoints"></span>ppm. </span> <span id="ecoSituation">The deebs and the plants they rely on are becoming endangered. </span></p>
+            </div><div id="columnTwo">
+                <h2>ARCHIVE</h2>
+
+            </div>
+        </div>
+        <div id="button"></div>
+
+        <div id="loading">
+            <div id="loadingCenter">
+                <img id="loadingTitle" src="assets/title.svg" alt="Flandill">
+                <p id="loadingText">GEE, THANKS FOR VISITING.</p>
+            </div>
+        </div>
         <script src="js/library.js"></script>
         <script src="js/textures.js"></script>
         <script src="js/component.js"></script>

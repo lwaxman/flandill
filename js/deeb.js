@@ -78,6 +78,8 @@ Deeb.prototype.shakeWithFear = function(){
 	}
 	if(mouseClicked){ this.health+=20; }
 	if(this.health >= this.deathPoint){
+		var deathSound = new Audio('../assets/death-wilt.wav');
+		deathSound.play();
 		this.state = 0;
 		this.fill1 = deebTexture(this.deathPoint-this.health, 5);
 		this.fill2 = deebTexture(this.deathPoint-this.health, 0);

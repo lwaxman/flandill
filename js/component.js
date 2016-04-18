@@ -29,3 +29,10 @@ window.onmousedown = function(){
 window.onmouseup = function(){
   mouseClicked = false;
 };
+
+window.onresize = function(){
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	w = window.innerWidth;
+	h = window.innerHeight;
+};

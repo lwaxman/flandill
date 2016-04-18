@@ -3,6 +3,8 @@
 * flora.js: all the plant/rock objects and their functions.
 */
 
+var pluck = new Audio('../assets/pluck_short.wav');
+
 //////////////////////////////////////////////////////////////////// ROCK
 
 function Rock(x, y, w, h){
@@ -84,9 +86,10 @@ Flower.prototype = Object.create(Component.prototype);
 
 Flower.prototype.update = function(){
 	if(this.hover){
-		if(mouseClicked){ 
+		if(mouseClicked){
+			pluck.play();
 			this.picked = true; 
-			ecosystem.flora -= 1;
+			ecosystem.flora -= 0.01;
 			console.log(ecosystem.flora);
 			this.h = this.h*0.4;
 		}
@@ -137,8 +140,9 @@ Plant.prototype = Object.create(Component.prototype);
 Plant.prototype.update = function(){
 	if(this.hover){
 		if(mouseClicked){ 
+			pluck.play();
 			this.picked = true; 
-			ecosystem.flora -= 1;
+			ecosystem.flora -= 0.01;
 			console.log(ecosystem.flora);
 			this.h = 30;
 		}

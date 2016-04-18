@@ -1,0 +1,117 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,400italic,300italic,700,700italic);
+body{ 
+    margin: 0; 
+    font-family: 'Source Sans Pro', sans-serif;
+    // font-family: "Menlo", "Monaco", monospace;
+    overflow: hidden;
+}
+canvas{
+    background: black;
+}
+#loading{
+    width: 100%;
+    height: 100%;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    background: black;
+    opacity: 1;
+    transition: opacity 2s;
+    text-align: center;
+    // z-index: 20;
+}
+#loading #loadingCenter{
+    position: relative;
+    width: 60%;
+    margin: 0 auto;
+    top: 30%;
+}
+#loading img{
+    position: relative;
+    width: 100%;
+}
+#loading p#loadingText{
+    color: #8AE0E6;
+    width: 100%;
+    letter-spacing: 0.8px;
+}
+
+#info{
+    position: absolute;
+    background: rgba(0,0,0,0.8);
+    padding: 50px;
+    top: 50px;
+    left: 50px;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 1500ms;
+}
+
+#button{
+    position: fixed;
+    z-index: 10;
+    top: 50px;
+    right: 50px;
+    width: 50px;
+    height: 50px;
+    opacity: 0.8;
+    background-image: url(info-close.png);
+}
+#button:hover{
+    opacity: 1
+}
+
+#info h2{
+    font-weight: 400;
+    font-size: 20px;
+    color: #FF7366;
+    text-align: left;
+}
+
+#info p{
+    font-weight: 300;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    text-align: left;
+    padding-right: 50px
+}
+
+#info #infoTitle{
+    position: relative;
+    width: 50%;
+}
+
+#info #columnOne{
+    vertical-align: top;
+    display: inline-block;
+    height: 90%;
+    width: 60%;
+    color: white;
+}
+#info #columnTwo{
+    vertical-align: top;
+    display: inline-block;  
+    height: 90%;
+    width: 30%;
+    background: blue;
+    color: white;
+}
+
+#alert{
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    bottom: 50px;
+}
+#alertBox{
+    background: black;
+    color: white;
+    display: inline-block;
+    padding: 10px;
+}
+.italic{
+    font-style: italic;
+}
+.emphasis{
+    color: #8AE0E6;
+}
