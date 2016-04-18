@@ -22,3 +22,10 @@ Component.prototype.checkHover = function(){
 		return false;
 	}
 };
+
+window.onmousedown = function(){
+  mouseClicked = true;
+};
+window.onmouseup = function(){
+  mouseClicked = false;
+};

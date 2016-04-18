@@ -1,3 +1,7 @@
+/*
+* www.flandill.net
+* flora.js: all the plant/rock objects and their functions.
+*/
 
 //////////////////////////////////////////////////////////////////// ROCK
 
@@ -43,9 +47,12 @@ function Bush(x, y, w, h){
 Bush.prototype = Object.create(Component.prototype);
 
 Bush.prototype.draw = function(){
+	if(this.hover){
+		alertBox.innerHTML = "It's a bush. Fascinating.";
+	} 
 	fill(this.fill);
 	stroke(this.stroke);
-	ellipse(this.x, this.y, this.w, this.h, 180, 360);
+	ellipse(this.x, this.y, this.w, this.h*2, 180, 360);
 };
 
 //////////////////////////////////////////////////////////////////// FLOWER
@@ -79,7 +86,9 @@ Flower.prototype.update = function(){
 	if(this.hover){
 		if(mouseClicked){ 
 			this.picked = true; 
-			ecosystem.flowers -= 1;
+			ecosystem.flora -= 1;
+			console.log(ecosystem.flora);
+			this.h = this.h*0.4;
 		}
 		if(!this.picked){
 			alertBox.innerHTML = "Please don't pick the flowers!";
@@ -113,6 +122,7 @@ Flower.prototype.drawStem = function(x1, y1, x2, y2, r){
 function Plant(x, y, w, h){
 	Component.call(this, x, y, w, h);
 	this.type = "plant";
+	this.picked = false;
 	var bri = map(ecosystem.points, 200, 400, 60, 40);
 	var sat = map(ecosystem.points, 200, 400, 100, 80);
 	var hue = map(ecosystem.points, 200, 400, 60, 40);
@@ -124,13 +134,34 @@ function Plant(x, y, w, h){
 
 Plant.prototype = Object.create(Component.prototype);
 
+Plant.prototype.update = function(){
+	if(this.hover){
+		if(mouseClicked){ 
+			this.picked = true; 
+			ecosystem.flora -= 1;
+			console.log(ecosystem.flora);
+			this.h = 30;
+		}
+		if(!this.picked){
+			alertBox.innerHTML = "Please don't pick the plants!";
+		}else{
+			alertBox.innerHTML = "This <span class='italic'>used</span> to be a plant.";
+		}
+	} 
+};
+
+
 Plant.prototype.draw = function(){
 	stroke(this.stroke);
-	line(this.x+this.w/2, this.y, this.x+this.w/2, this.y-this.h);
-	fill(this.fill);
-	ellipse(this.x+this.w/2, this.y-this.h+30, 25, 25, 0, 360);
-	ellipse(this.x+this.w/2, this.y-this.h+15, 18, 18, 0, 360);
-	ellipse(this.x+this.w/2, this.y-this.h+5, 10, 10, 0, 360);
+	if(!this.picked){
+		line(this.x+this.w/2, this.y, this.x+this.w/2, this.y-this.h);
+		fill(this.fill);
+		ellipse(this.x+this.w/2, this.y-this.h+30, 25, 25, 0, 360);
+		ellipse(this.x+this.w/2, this.y-this.h+15, 18, 18, 0, 360);
+		ellipse(this.x+this.w/2, this.y-this.h+5, 10, 10, 0, 360);
+	}else{
+		line(this.x+this.w/2, this.y, this.x+this.w/2, this.y-30);
+	}
 };
 
 

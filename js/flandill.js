@@ -7,9 +7,8 @@
 * !!! must be called seperately from reset.js
 */
 
-
-var critters = []; 
-var deebs = [];
+// var critters = []; 
+// var deebs = [];
 var ecosystem = {};
 var bgFill; 
 var jsonData = {};
@@ -28,13 +27,15 @@ window.onload = function(){
       jsonData = JSON.parse(xmlhttp.responseText);
       //set
       ecosystem.points = eco.points+20; 
-      ecosystem.points = 400; 
-      ecosystem.flowers = 100; 
+      // ecosystem.points = 100; 
+      ecosystem.flora = eco.flora; 
       ecosystem.visitors = eco.visitors+1; 
       ecosystem.archive = 0;
       var today = new Date();
       ecosystem.lastVisit = today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear(); 
       if(ecosystem.points<=0){ ecosystem.points = 0; }
+      var newVisit = JSON.stringify( { date:ecosystem.lastVisit, points: ecosystem.points } );
+      ecosystem.dates = eco.dates + newVisit; 
 
       ecosystem.critters = [];
       addToEcosystem(eco, ecosystem);
@@ -43,7 +44,9 @@ window.onload = function(){
       console.log("points", ecosystem.points);
       console.log("lastVisit", ecosystem.lastVisit);
       console.log("archive", ecosystem.archive);
+      console.log("flora", ecosystem.flora);
       console.log("visitors", ecosystem.visitors);
+      console.log("dates", ecosystem.dates);
 
       document.getElementById("loading").style.opacity = "0";
     }
@@ -51,12 +54,6 @@ window.onload = function(){
   xmlhttp.send();
 };
 
-window.onmousedown = function(){
-  mouseClicked = true;
-};
-window.onmouseup = function(){
-  mouseClicked = false;
-};
 
 //draw
 setInterval(function(){
@@ -92,7 +89,8 @@ window.onbeforeunload = function(){
   jsonData.visitors = ecosystem.visitors; 
   jsonData.lastVisit = ecosystem.lastVisit; 
   jsonData.archive = ecosystem.archive; 
-  jsonData.flowers = ecosystem.flowers; 
+  jsonData.flora = ecosystem.flora; 
+  jsonData.dates = ecosystem.dates;
 
   for(var c=0; c<ecosystem.critters.length; c++){
     if(ecosystem.critters[c].type == "deeb"){

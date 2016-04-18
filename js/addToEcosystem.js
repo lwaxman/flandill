@@ -5,11 +5,12 @@
 
 function addToEcosystem(eco, ecosystem){
   var points = ecosystem.points;
+  var floraCount = 1;//ecosystem.flora; 
   var density = Math.round( (width*height/22500) );
   var rockCount = Math.round( density*0.2 );  
   var grassCount = Math.round( density );  
-  var flowerCount = Math.round( density*map(points, 400, 0, 0.3, 1.5) );
-  var plantCount = Math.round( flowerCount*0.8 );  
+  var flowerCount = Math.round( floraCount*density*map(points, 400, 0, 0.3, 1.5) );
+  var plantCount = Math.round( floraCount*flowerCount*0.8 );  
   var bushCount = Math.round( density*map(points, 400, 0, 0.2, 0.6) );
   var deebCount = Math.round( density*map(points, 400, 0, 0.2, 0.6) ); 
   for(var i=0; i<deebCount; i++){
@@ -21,7 +22,7 @@ function addToEcosystem(eco, ecosystem){
     ecosystem.critters.push(d);
   }
   for(var b=0; b<bushCount; b++){
-    tempBush = new Bush( random(0,width), random(0,height,false), random(100,150), random(100,150) );
+    tempBush = new Bush( random(0,width), random(0,height,false), random(100,150), random(50,75) );
     ecosystem.critters.push( tempBush );
   }
   for(var f=0; f<flowerCount; f++){

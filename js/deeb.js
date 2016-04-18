@@ -1,10 +1,13 @@
+/*
+* www.flandill.net
+* deeb.js: the deeb object and its functions.
+*/
 
 function Deeb(x, y, w, h) {
 	Component.call(this, x, y, w, h);
 	var neg; 
 	if(random(0,1)<1){ neg = -1; }else{ neg = 1; }
 	this.speed = random( map(ecosystem.points, 0, 400, 3, 1), map(ecosystem.points, 0, 400, 6, 3), false)*neg;
-	// this.speed = random(2, 5)*neg;
 	this.height = h; 
 	if(random(0,1,false)<0.3){
 		this.deathPoint = random(250, 400);
@@ -12,23 +15,25 @@ function Deeb(x, y, w, h) {
 		this.deathPoint = random(350, 400);
 	}
 	this.health = random( map(ecosystem.points, 0, 400, 0, 300), map(ecosystem.points, 0, 400, 30, 400) );
-	// this.death = this.health;
 	this.mouth = random(20, 40);
 	this.slugLength =  random(40,70);
 	this.slugCount = random(0,10);
-	this.state = 1; 
-	if(ecosystem.points>=this.deathPoint || this.health>=this.deathPoint){
-		this.state = 0; 
-	}
-	// this.health = this.health
 	this.fill1 = deebTexture(this.deathPoint-this.health, 5);
 	this.fill2 = deebTexture(this.deathPoint-this.health, 0);
 	this.stroke = deebStroke(this.deathPoint-this.health);
+	this.state = 1; 
+	if(ecosystem.points>=this.deathPoint || this.health>=this.deathPoint){
+		this.state = 0; 
+		this.fill1 = deebTexture(0, 5);
+		this.fill2 = deebTexture(0, 0);
+		this.stroke = deebStroke(0);
+	}
 	this.type = "deeb";
 	this.index = 0;
 	this.name = "debby";
 	this.hoverText = random(0,3);
 	this.eyeSize = random(20,30, false);
+	
 }
 
 Deeb.prototype = Object.create(Component.prototype);
@@ -38,10 +43,14 @@ Deeb.prototype.update = function() {
 	  	this.slug();
 	  	if(this.hover){
 	  		this.shakeWithFear();
-	  		document.getElementById("alertBox").innerHTML = this.displayHoverText(this.name);
+	  		alertBox.innerHTML = this.displayHoverText(this.name);
 	  	}else{
 		  	this.moveDeeb();
 	  	}
+  	}else{
+  		if(this.hover){
+	  		alertBox.innerHTML = "R.I.P. "+ this.name+".";
+  		}
   	}
 };
 
@@ -74,7 +83,6 @@ Deeb.prototype.shakeWithFear = function(){
 		this.fill2 = deebTexture(this.deathPoint-this.health, 0);
 		this.stroke = deebStroke(this.deathPoint-this.health);
 	}
-	console.log("hover",this.health);
 };
 
 Deeb.prototype.displayHoverText = function(name) {
@@ -105,6 +113,11 @@ Deeb.prototype.draw = function() {
 	var eyeHeight = map(this.health, 100, this.deathPoint, this.h*0.95, this.h*0.75);
 	var smile = map(this.health, 100, this.deathPoint, 20, -20);
 	var smileWidth = map(this.health, 100, this.deathPoint, this.mouth, this.mouth*0.6);
+	
+	if(bodyWidth<30) bodyWidth = 30; 
+	if(this.state===0){ 
+		this.eyeSize = 15; 
+	}
 
 	stroke(this.stroke);
 	fill(this.fill1);
@@ -129,8 +142,8 @@ Deeb.prototype.draw = function() {
 			var centerX = this.x+(i*10);
 			var centerY = this.y-eyeHeight;
 			stroke("#666");
-			line(centerX-4, centerY-4, centerX+4, centerY+4);
-			line(centerX-4, centerY+4, centerX+4, centerY-4);
+			line(centerX-3, centerY-3, centerX+3, centerY+3);
+			line(centerX-3, centerY+3, centerX+3, centerY-3);
 			noStroke();
 		}
 	}
@@ -138,7 +151,7 @@ Deeb.prototype.draw = function() {
 	//mouth
 	if(this.state!==0){
 		noFill();
-		stroke("#468287");
+		stroke("#717973");
 		if(!this.hover){			
 			if(smile>=-3 && smile<=3){
 				line(this.x-(smileWidth/2), this.y-eyeHeight+25, this.x+(smileWidth/2), this.y-eyeHeight+25 );
