@@ -49,7 +49,7 @@ Bush.prototype.draw = function(){
 
 function Flower(x, y, w, h){
 	Component.call(this, x, y, w, h);
-	this.type = "bush";
+	this.type = "flower";
 	var hue = 27+random(-20,20);
 	var sat = map(ecosystem.points, 200, 400, 100, 40);
 	var bri = map(ecosystem.points, 200, 400, 70, 50) + random(-10, 10);
@@ -88,7 +88,7 @@ Flower.prototype.drawStem = function(x1, y1, x2, y2, r){
 
 function Plant(x, y, w, h){
 	Component.call(this, x, y, w, h);
-	this.type = "bush";
+	this.type = "plant";
 	var bri = map(ecosystem.points, 200, 400, 60, 40);
 	var sat = map(ecosystem.points, 200, 400, 100, 80);
 	var hue = map(ecosystem.points, 200, 400, 60, 40);
@@ -114,7 +114,7 @@ Plant.prototype.draw = function(){
 
 function Grass(x, y, w, h){
 	Component.call(this, x, y, w, h);
-	this.type = "bush";
+	this.type = "grass";
 
 	var sat = map(ecosystem.points, 200, 400, 100, 10);
 	if(ecosystem.points<=100){ sat = 100; }

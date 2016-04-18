@@ -21,8 +21,8 @@ c.lineWidth = 2;
 
 /*************************************************************************** MOUSE */
 
-var mouseX = 0; //w+200;
-var mouseY = 0; //h+200;
+var mouseX = -200; //w+200;
+var mouseY = -200; //h+200;
 document.onmousemove = function(e){
 	mouseX = e.clientX;
 	mouseY = e.clientY;

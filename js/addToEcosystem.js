@@ -9,11 +9,11 @@ function addToEcosystem(eco, ecosystem){
   var bushCount = Math.round( density*map(points, 400, 0, 0.2, 0.6) );
   var deebCount = Math.round( density*map(points, 400, 0, 0.2, 0.6) ); 
   for(var i=0; i<deebCount; i++){
-    var thisDeeb = eco.critters[ random(0,eco.critters.length) ];
-    console.log("loading",thisDeeb.name);
+    var thisDeeb = eco.critters[ random(0,eco.critters.length-1) ];
     var d = new Deeb(thisDeeb.x, thisDeeb.y, thisDeeb.w, thisDeeb.height);
     d.name = thisDeeb.name;
     d.index = thisDeeb.index; 
+    // d.health = thisDeeb.health; 
     ecosystem.critters.push(d);
   }
   for(var b=0; b<bushCount; b++){

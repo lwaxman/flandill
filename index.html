@@ -4,7 +4,10 @@
         <meta charset="utf-8">
         <title>FLANDILL</title>
         <style> 
-            body{ margin: 0; }
+            body{ 
+                margin: 0; 
+                font-family: "Menlo", "Monaco", monospace;
+            }
             #loading{
                 width: 100%;
                 height: 100%;
@@ -22,10 +25,24 @@
                 color: white;
                 font-family: "Menlo", "Monaco", monospace; 
             }
+            #alert{
+                width: 100%;
+                text-align: center;
+                position: fixed;
+                bottom: 50px;
+            }
+            #alertBox{
+                background: black;
+                color: white;
+                display: inline-block;
+                padding: 10px;
+            }
         </style>
     </head>
     <body>
         <canvas id="main"></canvas>
+        <div id="alert"><p id="alertBox">...</p></div>
+
         <div id="loading"><p>[ loading loading loading ]</p></div>
         <!-- <script src="php/creatures.json"></script> -->
         <script src="js/library.js"></script>
@@ -34,7 +51,6 @@
         <script src="js/flora.js"></script>
         <script src="js/deeb.js"></script>
         <script src="js/addToEcosystem.js"></script>
-        <script src="js/hoverTextStrings.js"></script>
         <!-- <script src="js/reset.js"></script> -->
         <script src="js/flandill.js"></script>
     </body>

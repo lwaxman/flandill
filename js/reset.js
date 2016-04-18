@@ -9,10 +9,11 @@ function reset(){
 
 	var i;
 	for(i = 0; i < 400; i++) {
-		console.log("creating deeb", i);
-		var d = new Deeb(random(0,width), random(0,height), random(120, 170), random(120,160));
+		// console.log("creating deeb", i);
+		var d = new Deeb(random(0,width), random(0,height,false), random(120, 170), random(120,160));
 		d.name = names[i];
 		d.index = i; 
+		console.log(d.name, d.index);
 		ecosystem.critters.push(d);
 	}	
 	// return ecosystem;
